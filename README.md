@@ -4,7 +4,7 @@ HT-IDE3000 V8.02  HT66F318 28ssop
 Project Option可選擇:HXT,HIRC8M,HIRC12M,HIRC16M,LXT,LIRC 
 
 Useing HT66F318 UART access to GPIO, LED matrix, EEPROM, ADC, I2C...(Same RS-485 driver)
-此專案利用PC軟件下達指令以存取MCU內部的EEPROM(64bytes), ADC(8ch 10bits), PWM output(10bit), Capture... 
+此專案利用PC軟件下達指令以存取MCU內部的EEPROM(64bytes), ADC(8ch 12bits), PWM output(10bit), Capture... 
 後續還可以持續增加I2C(Hi resolution adc), SPI(OLED display) 都透過UART 9600,N,8,1 協議格式參照RS-485通訊協議格式.
 
 ADC設置直接透過AN0~AN7讀取外部輸入,或AVDD,AVDD1/2,AVDD1/4讀取內部輸入.
