@@ -1,17 +1,19 @@
-### UART2CAPTUREwith8bitsMCU
-HT-IDE3000 V8.02  HT66F318 28ssop
+## â€»UART2CAPTUREwith8bitsMCU
+Useing HT66F318 UART access to GPIO, LED matrix, EEPROM, ADC, I2C...internal resource (Same RS-485 port)<br>
+æ­¤å°ˆæ¡ˆåˆ©ç”¨PCè»Ÿä»¶é€šéUART portä¸‹é”æŒ‡ä»¤ä»¥å­˜å–MCUå…§éƒ¨çš„EEPROM(64bytes), ADC(8ch 12bits), PWM output(10bit), Capture...<br>
+å¾ŒçºŒé‚„å¯ä»¥æŒçºŒå¢åŠ I2C(Hi resolution adc), SPI(OLED display) éƒ½é€éUART port<br>
 
-Project Option¥i¿ï¾Ü:HXT,HIRC8M,HIRC12M,HIRC16M,LXT,LIRC 
+Baudrate: 9600,N,8,1 (å”è­°æ ¼å¼åƒç…§RS-485é€šè¨Šå”è­°æ ¼å¼)<br>
+ADCè¨­ç½®ç›´æ¥é€éAN0~AN7è®€å–å¤–éƒ¨è¼¸å…¥,æˆ–AVDD,AVDD1/2,AVDD1/4è®€å–å…§éƒ¨è¼¸å…¥<br>
+Capture(HT66F317)è¨­ç½®TP1ç•¶è¼¸å…¥æ¢ä»¶16bit+16bit counting<br>
+Capture(HT66F318)è¨­ç½®TP1ç•¶è¼¸å…¥æ¢ä»¶10bit+16bit counting<br>
+Project Option: HXT; å¯é¸é …é‚„æœ‰(å°å¿ƒä½¿ç”¨)HXT,HIRC8M,HIRC12M,HIRC16M,LXT,LIRC
 
-Useing HT66F318 UART access to GPIO, LED matrix, EEPROM, ADC, I2C...(Same RS-485 driver)
-¦¹±M®×§Q¥ÎPC³n¥ó¤U¹F«ü¥O¥H¦s¨úMCU¤º³¡ªºEEPROM(64bytes), ADC(8ch 12bits), PWM output(10bit), Capture... 
-«áÄòÁÙ¥i¥H«ùÄò¼W¥[I2C(Hi resolution adc), SPI(OLED display) ³£³z¹LUART 9600,N,8,1 ¨óÄ³®æ¦¡°Ñ·ÓRS-485³q°T¨óÄ³®æ¦¡.
+HT66F318 28ssop with HT-IDE3000 V8.02 & e-Link & e-WriterPro<br>
+[HT66F318 Document](https://www.holtek.com.tw/search?key=ht66F318)<br>
+[IDE3000 & ICE & Writer](https://www.holtek.com.tw/ice)<br>
 
-ADC³]¸mª½±µ³z¹LAN0~AN7Åª¨ú¥~³¡¿é¤J,©ÎAVDD,AVDD1/2,AVDD1/4Åª¨ú¤º³¡¿é¤J.
-
-Capture(HT66F317)³]¸mTP1·í¿é¤J±ø¥ó16bit+16bit counting
-Capture(HT66F318)³]¸mTP1·í¿é¤J±ø¥ó10bit+16bit counting
-
+### Relevant information
 * HT-IDE3000 V8.02
 ![Image](HT-IDE3000_version.jpg)
 * HOLTEK C Compiler V3/Assembly
@@ -24,23 +26,21 @@ Capture(HT66F318)³]¸mTP1·í¿é¤J±ø¥ó10bit+16bit counting
 * HT66F318 28ssop Diagram
 ![Image](CircuitDiagram.jpg)
 
-
-#### How to test or used:
-§Q¥ÎPC³q°T³n¥ó°µ¬°¥D°Ê¤u¨ã, ¨óÄ³(9600,n,8,1), ®æ¦¡¤ñ·ÓRS-485®æ¦¡(PC«ü¥OCRC¥Î A0 0A¥N´À, MCU¤ÏõXªº¬°CRC-16)
+### How to test or used
+åˆ©ç”¨PCé€šè¨Šè»Ÿä»¶åšç‚ºä¸»å‹•å·¥å…·, å”è­°(9600,n,8,1), æ ¼å¼æ¯”ç…§RS-485æ ¼å¼(PCæŒ‡ä»¤CRCç”¨ A0 0Aä»£æ›¿, MCUåé¥‹çš„ç‚ºCRC-16)
 
 * For Example: 
-* UART Formate(Get from MCU): 44 03 00 00 00 04 A0 0A   #Åª¨úEEPROM¦ì§}0x0000,4²Õ(¦@­p8­Óbytes)
-MCU return³]­p³Ì¤j¨C¦¸Åª¨ú¥|²Õ(8byte) ©Ò¥H¤ÏõX®É: 44 03 08 00 01 02 03 04 05 06 07 CRC CRC
+* UART Formate(Get from MCU): 44 03 00 00 00 04 A0 0A   #è®€å–EEPROMä½å€0x0000,4çµ„(å…±è¨ˆ8å€‹bytes)
+MCU returnè¨­è¨ˆæœ€å¤§æ¯æ¬¡è®€å–å››çµ„(8byte) æ‰€ä»¥åé¥‹æ™‚: 44 03 08 00 01 02 03 04 05 06 07 CRC CRC
 
-* UART Formate(Write to MCU): 44 06 00 0A EE FF A0 0A   #¼g¤JEEPROM¦ì§}0x000A,¸ê®Æ¬°0xEEFF
+* UART Formate(Write to MCU): 44 06 00 0A EE FF A0 0A   #å¯«å…¥EEPROMä½å€0x000A,è³‡æ–™ç‚º0xEEFF
 MCU return: 44 06 00 0A EE FF CRC CRC
 
-* UART Formate(Get from MCU): 44 03 03 00 00 02 A0 0A   #Åª¨úCapture³q¹D0, 1²Õ4­Óbytes
+* UART Formate(Get from MCU): 44 03 03 00 00 02 A0 0A   #è®€å–Captureé€šé“0, 1çµ„4å€‹bytes
 MCU return Capture: 44 03 04 03 FF FF FF CRC CRC
 MCU return Capture: 44 03 04 08 00 00 00 EC 97
 
-
-#### Other applications:
+### Other applications
 * UART access to ADC converter(HY3118 24bit ADC) via I2C bus.
 * UART access to OLED 16x2 display driver via SPI bus.
 
