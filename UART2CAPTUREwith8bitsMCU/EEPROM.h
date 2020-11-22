@@ -26,9 +26,9 @@
 #define	EEPROM_code		EEPROM_START_ADDR+7
 //___________________________________________________________________
 //___________________________________________________________________
-void Write_EEPROM(unsigned char addr,unsigned char data);
-unsigned char Read_EEPROM(unsigned char addr);
-void TEST_EEPROM(u8 eeprom_length);	//For test or Debug
+extern void Write_EEPROM(unsigned char addr,unsigned char data);
+extern unsigned char Read_EEPROM(unsigned char addr);
+extern void TEST_EEPROM(u8 eeprom_length);	//For test or Debug
 
 volatile	unsigned char databuffer[EEPROM_BUFFER_MAX] __attribute__ ((at(0x1F0)));
 

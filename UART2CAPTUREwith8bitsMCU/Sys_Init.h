@@ -14,29 +14,14 @@
 #ifndef _SYS_INIT_H_
 #define _SYS_INIT_H_
 
-#define Vbat_adc 	AN0		//binding _pb0 , AN0=0
-#define IO_test 	_pb1
-#define Buzzer	 	_pb2
-#define LED_fast 	_pb5	//LED flash fast
-#define PWMout		_pb3	//pb3 binding TP2(TM2) CTM already
-#define Capture		_pa7	//pa7 binding TP1(TM1) PTM already
-#define LED_slow 	_pa0	//pa0 not binding TP0(TM0) STM already
-
 extern unsigned char  	count_2sec;
-extern __byte_type		system_flag;
-#define toggle_led		system_flag.bits.b0
-#define toggle_buzzer	system_flag.bits.b1
-#define sleep_request	system_flag.bits.b2
-
-
 
 void PowerOn_Init(), WDT_ResetInit(), ReadyToHalt();
 void GPIO_Init(), Ram_Init(), Task_500ms(), Key_Scan();
 
 //___________________________________________________________________
 //___________________________________________________________________
-//  HIRC可選頻率有(options HXT or HIRC)
-//  4000000，8000000，120000  by hardware option if select HIRC
+
 #define OSC_Frequency		8000000
 
 
@@ -69,15 +54,18 @@ void GPIO_Init(), Ram_Init(), Task_500ms(), Key_Scan();
 // Bit 0 HLCLK：system clock selection
 // 		0：fH/2 ~ fH/64 or fSUB  
 //		1：fH
-#define SMOD_Default	0b11110011  
 
-//#define SETHIRC_8MHZ()	{_cks2 = 1;_cks1 = 1;_cks0 = 1;_fsten = 1;_idlen = 1;_hlclk = 1;}
-//#define SETHIRC_12MHZ()	{_cks2 = 1;_cks1 = 1;_cks0 = 1;_fsten = 1;_idlen = 1;_hlclk = 1;}
-//#define SETHIRC_16MHZ()	{_cks2 = 1;_cks1 = 1;_cks0 = 1;_fsten = 1;_idlen = 1;_hlclk = 1;}
-#define SETHXT()		{_cks2 = 1;_cks1 = 1;_cks0 = 1;_fsten = 1;_idlen = 1;_hlclk = 1;}
-//#define SETHXT()		{_fsten = 1;_idlen = 1;_hlclk = 1;}
-//#define SETLIRC_32K()	{_cks0 = 0;_fsten = 1;_idlen = 1;_hlclk = 0;}
-//#define SETLXT_32768(){_cks0 = 1;_fsten = 1;_idlen = 1;_hlclk = 0;}
+#define SMOD_Default	0b11110011 	//by fH
+//#define SMOD_Default	0b11110010  //by fH/2
+//#define SMOD_Default	0b11010010  //by fH/4
+//#define SMOD_Default	0b10110010  //by fH/8
+//#define SMOD_Default	0b10010010  //by fH/16
+//#define SMOD_Default	0b01110010  //by fH/32
+//#define SMOD_Default	0b01010010  //by fH/64
+//#define SMOD_Default	0b00110010  //by fSUB
+//#define SMOD_Default	0b00010010  //by fSUB
+//#define SETHXT()		{	_cks2=1; _cks1=1; _cks0=1; _fsten=1; _idlen=1; _hlclk=1;	}
+#define Fsys_select()	{ 	_smod=SMOD_Default;		}
 
 
 //-------------WDT config---------------
@@ -153,10 +141,17 @@ void GPIO_Init(), Ram_Init(), Task_500ms(), Key_Scan();
 // 			000:  2^8/ftb    001:  2^9/ftb    010:  2^10/ftb
 // 			011:  2^11/ftb   100:  2^12/ftb   101:  2^13/ftb
 // 			110:  2^14/ftb   111:  2^15/ftb
-#define TimeBase_500ms	0B10100110	//TimeBase0 0.5S, TimeBase1 0.5S
-#define TimeBase_1000ms	0B10110111	//TimeBase0 1.0S, TimeBase1 1.0S
-#define TimeBase_init()	{	_tbc=TimeBase_500ms; _tb1e=1;	}	//enable TB1 interrupt.
-//#define TimeBase_init()	{	_tbc=TimeBase_500ms; _tb0e=1; _tb1e=1;	}	//enable TB0/TB1 interrupt.
+
+//#define TimeBase_Default 	0B10100111	//TB0 1.026S, TB1 0.514S base on fsub
+//#define TimeBase_Default 	0B10100110	//TB0 0.514S, TB1 0.514S base on fsub
+
+#define TimeBase_Default 	0B10100001	//TB0 16.05mS, TB1 0.514S base on fsub
+//#define TimeBase_Default 	0B10100000	//TB0 8.02mS, TB1 0.514S base on fsub
+
+//#define TimeBase_Default 	0B10110110	//TB0 0.514S, TB1 1.026S base on fsub
+//Enable 1 or both
+//#define TimeBaseInitial()	{	_tbc=TimeBase_Default; _tb0e=1;		}	//enable TB0 interrupt.
+#define TimeBaseInitial()	{ 	_tbc=TimeBase_Default; _tb0e=1; _tb1e=1;	} //enable TB0,TB1 interrupt.		
 
 //------------Timer module--------------
 //---------------PTMnC0-----------------
