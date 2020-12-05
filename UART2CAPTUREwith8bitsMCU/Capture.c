@@ -16,7 +16,6 @@
 __16_type 	counting;
 __32_type	capture_val;
 
-void Capture_init(), Capture_test();
 
 //___________________________________________________________________
 //Function: MuFunction1 ISR

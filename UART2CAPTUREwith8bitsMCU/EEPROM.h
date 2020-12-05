@@ -16,7 +16,7 @@
 
 //EEPROM address define by user
 #define	EEPROM_BUFFER_MAX	16
-#define	EEPROM_START_ADDR	0x01
+#define	EEPROM_START_ADDR	0x00
 #define	EEPROM_year		EEPROM_START_ADDR+1
 #define	EEPROM_month	EEPROM_START_ADDR+2
 #define	EEPROM_day		EEPROM_START_ADDR+3
@@ -30,6 +30,6 @@ extern void Write_EEPROM(unsigned char addr,unsigned char data);
 extern unsigned char Read_EEPROM(unsigned char addr);
 extern void TEST_EEPROM(u8 eeprom_length);	//For test or Debug
 
-volatile	unsigned char databuffer[EEPROM_BUFFER_MAX] __attribute__ ((at(0x1F0)));
+static volatile	unsigned char databuffer[EEPROM_BUFFER_MAX] __attribute__ ((at(0x1F0)));
 
 #endif

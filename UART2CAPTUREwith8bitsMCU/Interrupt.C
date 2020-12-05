@@ -14,7 +14,7 @@
 #include "common.h"
 
 volatile __byte_type	interrupt_flag;
-u8 isr_temp0;
+
 //___________________________________________________________________
 //Function: INT0 ISR
 //NOTE	  :   

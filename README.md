@@ -4,8 +4,9 @@
 * 後續還可以持續增加I2C(Hi resolution adc), SPI(OLED display) 都透過UART port<br>
 
 * Project Option:<br>
-HXT (External 8MHz X'tal); 可選項有:HXT(400K~16Mhz),HIRC8M,HIRC12M,HIRC16M<br>
-LICR (Low speed internal RC for TB0/TB1); 可選項有:LXT(32.768Khz),LIRC(32Khz)<br>
+HXT (External 8MHz X'tal): 可選項有:HXT(400K~16Mhz),HIRC4M,HIRC8M,HIRC12M<br>
+LICR (Low speed internal RC for TB0/TB1): 可選項有:LXT(32.768Khz),LIRC(32Khz)<br>
+WatchDog: enable<br>
 
 * UART port baudrate setting 9600,N,8,1 ;Protocol format refer RS-485 Modbus & CRC-16 <br>
 通訊協議格式參照RS-485通訊協議格式(Modbus & CRC-16).<br>

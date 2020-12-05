@@ -15,10 +15,5 @@
 #define _INTERRUPT_H_
 
 extern	volatile	__byte_type	interrupt_flag;
-#define TB0_int_flag	interrupt_flag.bits.b0
-#define TB1_int_flag	interrupt_flag.bits.b1
-#define edge_int_flag	interrupt_flag.bits.b2
-
-extern u8	isr_temp0;
 
 #endif
