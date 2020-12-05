@@ -24,6 +24,19 @@
 #define	EEPROM_minute	EEPROM_START_ADDR+5
 #define	EEPROM_second	EEPROM_START_ADDR+6
 #define	EEPROM_code		EEPROM_START_ADDR+7
+
+#define	__mkstr(x)	#x
+#define _EEPROM_DATA(a,b,c,d,e,f,g,h) \
+asm("eeprom_data 	.section	'eeprom'"); \
+asm("db\t"	__mkstr(a)); \
+asm("db\t"	__mkstr(b)); \
+asm("db\t"	__mkstr(c)); \
+asm("db\t"	__mkstr(d)); \
+asm("db\t"	__mkstr(e)); \
+asm("db\t"	__mkstr(f)); \
+asm("db\t"	__mkstr(g)); \
+asm("db\t"	__mkstr(h));
+
 //___________________________________________________________________
 //___________________________________________________________________
 extern void Write_EEPROM(unsigned char addr,unsigned char data);
